@@ -1,0 +1,68 @@
+#include <iostream> 
+using namespace std;
+const int x = 5; // Строка 
+const int y = 6; // Столбец 
+
+int inputArr(int arr[x][y]) {
+	for (int j = 0; j < y; j++) // Прохождение по столбцам. 
+	{ // 1-y 
+		for (int i = 0; i < x; i++)// Прохождение по строкам. 
+		{ // 1-x 
+			arr[i][j] = 1 + rand() % 10; // Заполнение текущего значения рандомом (1-10) 
+		}
+	}
+	return 0;
+}
+int outputArr(int arr[x][y]) {
+	// Вывод массива. 
+	for (int j = 0; j < y; j++) // Прохождение по столбцам. 
+	{ // 1-y 
+		for (int i = 0; i < x; i++) // Прохождение по строкам. 
+		{ // 1-x 
+			cout << arr[i][j] << " "; // Вывод текущего значения + табуляция. 
+		}
+		cout << endl; // Перенос на другую строку. 
+	}
+	return 0; // Возращаем нуль 
+}
+
+// **********************************************************************************
+void whoMaxwhoMin(int arr[x][y], int *min, int *max, int *minx, int *miny, int *maxx, int *maxy) {
+	for (int j = 0; j < y; j++) { // Прогоняем в цикле весь массив
+		for (int i = 0; i < x; i++) {
+			if (*max < arr[i][j]) {
+				*max = arr[i][j]; // Само максимальное значение.
+				*maxx = i; // Адрес максимального значения по X.
+				*maxy = j; // Адрес максимального значения по Y.
+			}
+			if (*min > arr[i][j]) {
+				*min = arr[i][j]; // Само минимальное значение.
+				*minx = i; // Адрес минимального значения по X.
+				*miny = j; // Адрес минимального значения по Н.
+			}
+		}
+	}
+	cout << "max[" << *maxx << "][" << *maxy << "] = " << *max << ".\nmin[" << *minx << "][" << *miny << "] = " << *min << endl;
+}
+
+int main(int argc, char* argv[]){
+	int arr[x][y]; // Создаём массив. 
+	inputArr(arr); // Заполнить его.
+
+	/*
+	arr - Массив.
+	min - Минимально значение массива.
+	minx - Индекс минимального значения массива.
+	miny - Индекс минимального значения массива.
+	max -  Максимальное значение массива.
+	maxx -  Индекс максимального значения массива.
+	maxy -  Индекс максимального значения массива.
+	*/
+	int min = arr[0][0], max = arr[0][0], minx = 0, miny = 0, maxx = 0, maxy = 0;
+	whoMaxwhoMin(arr,&min,&max,&minx,&miny,&maxx,&maxy); // Найти макс и мин.
+	// cout << "max[" << maxx << "][" << maxy << "] = " << max << ".\nmin[" << minx << "][" << miny << "] = " << min << endl;
+	
+	outputArr(arr); // Вывести массив.
+	system("pause");
+	return 0;
+}
