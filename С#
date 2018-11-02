@@ -1,0 +1,54 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _25._11_2{
+    class Program{
+        static void InPutArray(int[,] arr){ // Заполненима массива построчно
+            Random rnd = new Random();
+            for (int j = 0; j < arr.GetLength(0); j++){
+                for (int i = 0; i < arr.GetLength(1); i++)  {
+                    arr[i, j] = rnd.Next() % 100;
+                }
+            }
+        }
+        static void OutPutArray(int[,] arr){ // Вывод массива построчно
+            for (int j = 0; j < arr.GetLength(0); j++) {
+                for (int i = 0; i < arr.GetLength(1); i++){
+                    Console.Write($"{arr[i, j]} ");
+                }
+                Console.WriteLine();
+            }
+        }
+
+        static void Main(string[] args){
+            int[,] arr=new int[10,10];
+            // arr.GetLength(0) - x размер массива
+            // arr.GetLength(1) - y размер массива
+            // double a = Convert.ToDouble(Console.ReadLine());
+            InPutArray(arr);
+            int min=arr[0,0], max=arr[0,0], minx=0, miny=0, maxx=0, maxy=0;
+            for (int j = 0; j < arr.GetLength(0); j++) { // Прогоняем в цикле весь массив
+                for (int i = 0; i < arr.GetLength(1); i++) {
+                    if (max<arr[i,j]) {
+                        max = arr[i, j]; // Само максимальное значение.
+                        maxx = i; // Адрес максимального значения по X.
+                        maxy = j; // Адрес максимального значения по Y.
+                    }
+                    if (min > arr[i, j]) {
+                        min = arr[i, j]; // Само минимальное значение.
+                        minx = i; // Адрес минимального значения по X.
+                        miny = j; // Адрес минимального значения по Н.
+                    }
+                }
+            }
+            Console.WriteLine($"max[{maxx},{maxy}] = {max}.\tmin[{minx},{miny}] = {min}.");
+
+
+            OutPutArray(arr);
+            Console.ReadKey(true);
+        }
+    }
+}
